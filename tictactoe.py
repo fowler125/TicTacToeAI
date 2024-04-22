@@ -70,26 +70,25 @@ def winner(board):
     Returns the winner of the game, if there is one.
     """
     # Check rows
-    if all(i == board[0][0] for i in board[0]):
-        return board[0][0]
-    elif all(i == board[1][0] for i in board[1]):
-        return board[1][0]
-    elif all(i == board[2][0] for i in board[2]):
-        return board[2][0]
-    # Check columns
-    elif board[0][0] == board[1][0] and board[1][0] == board[2][0]:
-        return board[0][0]
-    elif board[0][1] == board[1][1] and board[1][1] == board[2][1]:
-        return board[0][1]
-    elif board[0][2] == board[1][2] and board[1][2] == board[2][2]:
-        return board[0][2]
-    # Check diagonals
-    elif board[0][0] == board[1][1] and board[1][1] == board[2][2]:
-        return board[0][0]
-    elif board[0][2] == board[1][1] and board[1][1] == board[2][0]:
-        return board[0][2]
-    else:
-        return None
+    for player in (X, O):
+        # check vertical
+            for row in board:
+                if row == [player] * 3:
+                    return player
+
+        # check horizontal
+            for i in range(3):
+                column = [board[x][i] for x in range(3)]
+                if column == [player] * 3:
+                    return player
+
+        # check diagonal
+            if [board[i][i] for i in range(0, 3)] == [player] * 3:
+                return player
+
+            elif [board[i][~i] for i in range(0, 3)] == [player] * 3:
+                return player
+    return None
 
 
 def terminal(board):
