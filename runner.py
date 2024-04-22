@@ -252,8 +252,10 @@ def play(u,algo,brd,AI):
                 Y_BTTN = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 400),
                                 text_input="Play as O", font=mediumFont, base_color="#d7fcd4",
                                 hovering_color="White")
+                BACK_BTTN = Button(image=None, pos=(75, 50),
+                                text_input="<BACK", font=mediumFont, base_color="#d7fcd4", hovering_color="White")
 
-                for button in [X_BTTN, Y_BTTN]:
+                for button in [X_BTTN, Y_BTTN,BACK_BTTN]:
                     button.changeColor(play_mouse)
                     button.update(screen)
 
@@ -268,6 +270,9 @@ def play(u,algo,brd,AI):
                         elif Y_BTTN.checkForInput(play_mouse):
                             time.sleep(0.2)
                             user = ttt.O
+                        elif BACK_BTTN.checkForInput(play_mouse):
+                            main_menu()
+
             else:
                 tile_size = 80
                 tile_origin = (width / 2 - (1.5 * tile_size),
@@ -326,6 +331,21 @@ def play(u,algo,brd,AI):
                         for j in range(3):
                             if (board[i][j] == ttt.EMPTY and tiles[i][j].collidepoint(mouse)):
                                 board = ttt.result(board, (i, j))
+                if game_over:
+                    againButton = pygame.Rect(width / 3, height - 65, width / 3, 50)
+                    again = mediumFont.render("Play Again", True, black)
+                    againRect = again.get_rect()
+                    againRect.center = againButton.center
+                    pygame.draw.rect(screen, white, againButton)
+                    screen.blit(again, againRect)
+                    click, _, _ = pygame.mouse.get_pressed()
+                    if click == 1:
+                        mouse = pygame.mouse.get_pos()
+                        if againButton.collidepoint(mouse):
+                            time.sleep(0.2)
+                            user = None
+                            board = ttt.initial_state()
+                            ai_turn = False
         elif algo == "Monte":
             if user is None:
                 title = largeFont.render("Play Tic-Tac-Toe", True, white)
@@ -339,8 +359,11 @@ def play(u,algo,brd,AI):
                 Y_BTTN = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 400),
                                 text_input="Play as O", font=mediumFont, base_color="#d7fcd4",
                                 hovering_color="White")
+                BACK_BTTN = Button(image=None, pos=(75, 50),
+                                text_input="<BACK", font=mediumFont, base_color="#d7fcd4", hovering_color="White")
 
-                for button in [X_BTTN, Y_BTTN]:
+
+                for button in [X_BTTN, Y_BTTN,BACK_BTTN]:
                     button.changeColor(play_mouse)
                     button.update(screen)
 
@@ -355,6 +378,9 @@ def play(u,algo,brd,AI):
                         elif Y_BTTN.checkForInput(play_mouse):
                             time.sleep(0.2)
                             user = ttt.O
+                        elif BACK_BTTN.checkForInput(play_mouse):
+                            main_menu()
+
             else:
                 tile_size = 80
                 tile_origin = (width / 2 - (1.5 * tile_size),
