@@ -33,6 +33,7 @@ Run the following command to start the game:
 ```bash
 python main.py
 ```
+![image](https://github.com/user-attachments/assets/6d27b014-7363-473e-9c3f-99901642b46c)
 
 ## How It Works
 1. The game launches a Tic-Tac-Toe board.
